@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity } from 'react-native'
 
+import CategoryGridTile from "../components/CategoryGridTile"
 import { CATEGORIES } from "../data/dummyData"
 import CategoryMeals from './CategoryMeals'
 
@@ -8,22 +9,17 @@ import CategoryMeals from './CategoryMeals'
 const CateoryScreen = (props) => {
 
     const renderItem = (itemData) => {
-        return <TouchableOpacity style={styles.gridItem} onPress={() => {
+        return <CategoryGridTile title={itemData.item.title} color={itemData.item.color} onSelect={() => {
             props.navigation.navigate({
                 routeName: "CategoryMeals",
                 params: {
                     id: itemData.item.id,
-                    category: itemData.item.title
+                    category: itemData.item.title,
+                    color: itemData.item.title
                 }
             })
-        }}>
-            <View >
-                <Text>{itemData.item.title}</Text>
-            </View>
-        </TouchableOpacity>
+        }} />
     }
-
-    console.log("props: ", props)
     return (
         <FlatList data={CATEGORIES} renderItem={renderItem} numColumns={2} />
     )
@@ -39,11 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    gridItem: {
-        flex: 1,
-        margin: 15,
-        height: 150
-    }
+
 
 })
 
